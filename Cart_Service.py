@@ -51,7 +51,8 @@ def add_product_to_cart(user_id, product_id):
 
     payload = {"product_id": product_id, "quantity": quantity}
     response = requests.post(
-        "http://127.0.0.1:5000/products/quantity/minus", json=payload
+        "https://cart-and-product-api.onrender.com/products/quantity/minus",
+        json=payload,
     )
 
     if response.status_code != 200:
@@ -108,14 +109,16 @@ def remove_product_to_cart(user_id, product_id):
         existing_product.quantity = existing_product.quantity - quantity
         payload = {"product_id": product_id, "quantity": quantity}
         response = requests.post(
-            "http://127.0.0.1:5000/products/quantity/add", json=payload
+            "https://cart-and-product-api.onrender.com/products/quantity/add",
+            json=payload,
         )
     else:
         db.session.delete(existing_product)
 
         payload = {"product_id": product_id, "quantity": existing_product.quantity}
         response = requests.post(
-            "http://127.0.0.1:5000/products/quantity/add", json=payload
+            "https://cart-and-product-api.onrender.com/products/quantity/add",
+            json=payload,
         )
 
         if response.status_code != 200:
